@@ -1,7 +1,7 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary position-fixed w-100">
         <div class="container-fluid">
-            <a class="navbar-brand text-dark" href="#">DishDelight</a>
+            <a class="navbar-brand text-dark" href="#"><img src="{{ asset('img/logo.png') }}"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -21,10 +21,10 @@
             </div>
         </div>
     </nav>
-    <div class="container-fluid">
+
         @yield('content')
-    </div>
-    <footer class="container-fluid bg-primary text-center">
+
+    <footer class="bg-primary text-center w-100 position-fixed">
         @yield('footer')
     </footer>
 </header>
