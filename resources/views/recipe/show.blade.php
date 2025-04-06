@@ -19,20 +19,20 @@
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-1 mt-5">
         <h1 class="m-2">{{$recipe->name}}</h1>
-        <div class="d-flex flex-column justify-content-center align-items-center flex-md-row gap-4 flex-wrap w-100"> 
+        <div class="d-flex flex-column justify-content-evenly align-items-stretch flex-md-row gap-4 flex-wrap w-100"> 
             <div style="max-width: 300px;">
                 <img src="{{ asset($recipe->image_url) }}" alt="" class="img-fluid" />
             </div>
-            <div>
-                <h5>ingredients required:</h5>
+            <div class="d-flex text-center flex-column justify-content-evenly align-items-center">
+                <h2>ingredients required:</h2>
                 <ul>
                     @foreach(explode(',', $recipe->ingredients) as $ingredient)
                         <li>{{ $ingredient }}</li>
                     @endforeach
                 </ul>
             </div>
-            <div>
-                <h5>Steps:</h5>
+            <div class="d-flex text-center flex-column justify-content-evenly align-items-center">
+                <h2>Steps:</h2>
                 <ul class="custom d-flex flex-column justify-content-center align-items-center w-100">
                     @foreach(explode('.', $recipe->instructions) as $instruction)
                         <li>{{ $instruction }}</li>
