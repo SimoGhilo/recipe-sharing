@@ -18,9 +18,9 @@
 
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-1 mt-5">
-        <h1 class="mb-2">{{$recipe->name}}</h1>
-        <div class="d-flex w-100 text-center  align-items-center justify-content-center gap-2"> 
-            <div style="max-width: 250px;">
+        <h1 class="m-2">{{$recipe->name}}</h1>
+        <div class="d-flex flex-column justify-content-center align-items-center flex-md-row gap-4 flex-wrap w-100"> 
+            <div style="max-width: 300px;">
                 <img src="{{ asset($recipe->image_url) }}" alt="" class="img-fluid" />
             </div>
             <div>
@@ -28,6 +28,14 @@
                 <ul>
                     @foreach(explode(',', $recipe->ingredients) as $ingredient)
                         <li>{{ $ingredient }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <div>
+                <h5>Steps:</h5>
+                <ul class="custom d-flex flex-column justify-content-center align-items-center w-100">
+                    @foreach(explode('.', $recipe->instructions) as $instruction)
+                        <li>{{ $instruction }}</li>
                     @endforeach
                 </ul>
             </div>
@@ -46,7 +54,7 @@
 </body>
 </html>
 <style>
-    /* main{
-        overfl
-    } */
+    .custom{
+        list-style: none;
+    }
 </style>
