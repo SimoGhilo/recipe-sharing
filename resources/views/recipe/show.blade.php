@@ -18,16 +18,21 @@
 
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-1 mt-5">
-        <h1 class="mb-2">Explore today's specialities</h1>
-        <div class="d-flex flex-column justify-content-center align-items-center flex-md-row gap-4 flex-wrap w-100">
-            @foreach($recipes as $recipe)
-                <div class="m-2" style="max-width: 250px;"> 
-                    <a href="{{ url('/recipe/' . $recipe->id) }}"><img src="{{ asset($recipe->image_url) }}" alt="" class="img-fluid" /></a>
-                    <p class="text-dark">{{$recipe->name}}</p>
-                </div>
-            @endforeach
+        <h1 class="mb-2">{{$recipe->name}}</h1>
+        <div class="d-flex w-100 text-center  align-items-center justify-content-center gap-2"> 
+            <div style="max-width: 250px;">
+                <img src="{{ asset($recipe->image_url) }}" alt="" class="img-fluid" />
+            </div>
+            <div>
+                <h5>ingredients required:</h5>
+                <ul>
+                    @foreach(explode(',', $recipe->ingredients) as $ingredient)
+                        <li>{{ $ingredient }}</li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
-    </main>    
+    </main>
     @endsection
 
 
@@ -41,12 +46,7 @@
 </body>
 </html>
 <style>
-    img{
-        transition: opacity 0.3s ease; 
-    }
-    img:hover{
-        opacity: 0.7;
-        cursor: pointer;
-    }
+    /* main{
+        overfl
+    } */
 </style>
-
