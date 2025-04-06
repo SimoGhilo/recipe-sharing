@@ -20,9 +20,12 @@ class RecipeController extends Controller
         if ($recipe) {
             return view('recipe.show', compact('recipe'));
         } else {
-            //TODO: create error view
-            return redirect()->route('recipes.index')->with('error', 'Recipe not found');
+            return redirect()->route('error.index')->with('error', 'Recipe not found');
         }
 
     } 
+
+    public function notFound(){
+        return view('error.index');
+    }
 }

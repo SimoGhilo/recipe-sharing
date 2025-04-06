@@ -43,7 +43,7 @@
     </main>
     @endsection
 
-
+    <!--TODO: Media queries -->
     
 
     @section('footer')
