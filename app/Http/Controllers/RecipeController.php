@@ -25,6 +25,15 @@ class RecipeController extends Controller
 
     } 
 
+    public function preview(Request $request)
+    {
+        $query = $request->input('query');
+
+        $results = Recipe::where('name', 'LIKE', "%{$query}%")->limit(5)->get();
+
+        return response()->json($results);
+    }
+
     public function notFound(){
         return view('error.index');
     }

@@ -20,10 +20,13 @@
                         <a class="nav-link text-dark" href="#">@yield('navbarItem2')</a>
                     </li>
                 </ul>
-                <form class="d-flex ms-auto">
-                    <input class="form-control me-2" type="search" placeholder="Search a recipe" aria-label="Search">
+                <form class="d-flex ms-auto" onsubmit="return false;">
+                    <div class="position-relative w-100" style="max-width: 300px;">
+                        <input id="search" class="form-control me-2 w-100" type="search" placeholder="Search a recipe" aria-label="Search">
+                        <div id="search-results" style="display: none;"></div>
+                    </div>
                     <button class="btn btn-outline-dark" type="submit">Go</button>
-                </form>
+                </form>                
             </div>
         </div>
     </nav>
@@ -39,4 +42,55 @@
     #logo{
         height:2.5rem;
     }
+    #search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 999;
+    max-height: 200px;
+    overflow-y: auto;
+    border-top: none;
+    }
+
+    #search-results div {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    #search-results div:hover {
+        background-color: #f0f0f0;
+    }
+
 </style>
+<script>
+
+document.getElementById('search').addEventListener('input', function (event) {
+    event.preventDefault();
+
+    const query = this.value;
+    const resultsDiv = document.getElementById('search-results');
+
+    if (query.length > 1) {
+        fetch(`/preview?query=${query}`)
+            .then(res => res.json())
+            .then(data => {
+                let html = '';
+                if (data.length > 0) {
+                    data.forEach(item => {
+                        html += `<div>${item.name}</div>`;
+                    });
+                } else {
+                    html = '<div>No results</div>';
+                }
+                resultsDiv.innerHTML = html;
+                resultsDiv.style.display = 'block';
+            });
+    } else {
+        resultsDiv.innerHTML = '';
+        resultsDiv.style.display = 'none';
+    }
+});
+</script>

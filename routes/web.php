@@ -12,3 +12,5 @@ Route::get('/', [RecipeController::class, 'getAllRecipes']);
 Route::get('/recipe/{id}', [RecipeController::class, 'show'])->name('recipe.show')->where('id', '[0-9]+');
 
 Route::get('/error', [RecipeController::class, 'notFound'])->name('error.index');
+
+Route::get('/preview', [RecipeController::class, 'preview'])->name('preview');
