@@ -43,8 +43,7 @@
     </main>
     @endsection
 
-    <!--TODO: add searchbar, add login and register, 
-        add functionality for adding a recipe, add ingredient table and pictures -->
+    <!--TODO: add login and register, adding a recipe, ingredient table and pictures -->
     
     
 
