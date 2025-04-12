@@ -4,7 +4,7 @@
     @section('navbarItem2', 'Register')
 
     @section('content')
-    <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-1 mt-5">
+    <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-5 mt-2">
         <h1 class="mb-2">Explore today's specialities</h1>
         <div class="d-flex flex-column justify-content-center align-items-center flex-md-row gap-4 flex-wrap w-100">
             @foreach($recipes as $recipe)

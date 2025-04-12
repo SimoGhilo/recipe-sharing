@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-primary bg-primary position-fixed w-100">
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary w-100">
         <div class="container-fluid">
             <a class="navbar-brand" href="/"><img id="logo" class="img-fluid" src="{{ asset('img/logo.png') }}"/></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
