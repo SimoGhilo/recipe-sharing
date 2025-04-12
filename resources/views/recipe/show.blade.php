@@ -43,7 +43,7 @@
     </main>
     @endsection
 
-    <!--TODO: Media queries, adjust navbar fixed and footer, add searchbar, add login and register, 
+    <!--TODO: add searchbar, add login and register, 
         add functionality for adding a recipe, add ingredient table and pictures -->
     
     
