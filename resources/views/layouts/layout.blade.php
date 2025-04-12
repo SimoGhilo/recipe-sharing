@@ -80,7 +80,7 @@ document.getElementById('search').addEventListener('input', function (event) {
                 let html = '';
                 if (data.length > 0) {
                     data.forEach(item => {
-                        html += `<div>${item.name}</div>`;
+                        html += `<div><a style="text-decoration: none" href=/recipe/${item.id}>${item.name}</a></div>`;
                     });
                 } else {
                     html = '<div>No results</div>';
