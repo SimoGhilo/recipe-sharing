@@ -17,24 +17,34 @@
 
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
-        <form>
+        <form action="{{route('login.submit')}}" method="POST">
+          @csrf
             <h1>Login</h1>
             <div class="mb-2">
               <label for="InputEmail" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="InputEmail" aria-describedby="email">
+              <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="email" required>
               <div id="email" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-2">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password">
+              <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
+
+          @if ($errors->any())
+          <div style="color: red;">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+          @endif
+          
     </main>    
     @endsection
 
-
-    
 
     @section('footer')
         <p class="mt-2">&copy; 2025 Dish Delight. All rights reserved.</p>

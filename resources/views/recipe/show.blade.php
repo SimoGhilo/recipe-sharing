@@ -42,9 +42,6 @@
         </div>
     </main>
     @endsection
-
-    <!--TODO: add login and register, adding a recipe, ingredient table and pictures -->
-    
     
 
     @section('footer')

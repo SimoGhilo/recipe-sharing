@@ -17,6 +17,10 @@
 
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-5 mt-2">
+        @if(session('success'))
+            <p style="color: green;">{{ session('success') }}</p>
+        @endif
+
         <h1 class="mb-2">Explore today's specialities</h1>
         <div class="d-flex flex-column justify-content-center align-items-center flex-md-row gap-4 flex-wrap w-100">
             @foreach($recipes as $recipe)
@@ -28,9 +32,6 @@
         </div>
     </main>    
     @endsection
-
-
-    
 
     @section('footer')
         <p class="mt-2">&copy; 2025 Dish Delight. All rights reserved.</p>
