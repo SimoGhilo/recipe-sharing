@@ -14,10 +14,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">@yield('navbarItem1')</a>
+                        <a class="nav-link text-dark" href="/login">@yield('navbarItem1')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">@yield('navbarItem2')</a>
+                        <a class="nav-link text-dark" href="register">@yield('navbarItem2')</a>
                     </li>
                 </ul>
                 <form class="d-flex ms-auto" onsubmit="return false;">

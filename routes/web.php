@@ -8,10 +8,9 @@ Route::fallback(function () {
     return redirect()->route('error.index')->with('error', 'Page not found');
 });
 
-//TODO: Working on auth, create views, error below
-Route:get('/register', [AuthController::class, 'show'])->name('show.register');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 
-// Route:get('/login', [AuthController::class, 'show'])->name('show.login');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 
 Route::get('/', [RecipeController::class, 'getAllRecipes']);
 
