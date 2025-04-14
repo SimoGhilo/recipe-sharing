@@ -1,4 +1,6 @@
 
+<?php use Illuminate\Support\Facades\Auth; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +15,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
 
-                <?php if('session'('user')): ?>
+
+                <?php if(Auth::check()): ?>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/profile"><?php echo e(session('user')->name); ?></a>
+                        <a class="nav-link text-dark" href="/profile"><?php echo e(Auth::user()->name); ?></a>
                     </li>
                 </ul>
                 <?php else: ?> 
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/login"><?php echo $__env->yieldContent('navbarItem1'); ?></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="register"><?php echo $__env->yieldContent('navbarItem2'); ?></a>
-                    </li>
-                </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/login"><?php echo $__env->yieldContent('navbarItem1'); ?></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/register"><?php echo $__env->yieldContent('navbarItem2'); ?></a>
+                        </li>
+                    </ul>
                 <?php endif; ?>
 
                 <form class="d-flex ms-auto" onsubmit="return false;">

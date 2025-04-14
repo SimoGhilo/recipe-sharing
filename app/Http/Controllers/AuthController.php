@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -57,6 +58,8 @@ class AuthController extends Controller
     
             // Check if the user exists and the password is correct
             if ($user && Hash::check($validatedRequest['password'], $user->password)) {
+                // Pass the user to session data
+                Auth::login($user);
                 // If credentials are correct, redirect to the welcome page
                 return redirect()->route('welcome')->with(['success'=> 'Login Successful!', 'user'=> $user]);
             } else {

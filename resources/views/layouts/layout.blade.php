@@ -1,4 +1,6 @@
 
+@php use Illuminate\Support\Facades\Auth; @endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +15,22 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
 
-                @if('session'('user'))
+
+                @if(Auth::check())
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/profile">{{session('user')->name}}</a>
+                        <a class="nav-link text-dark" href="/profile">{{ Auth::user()->name }}</a>
                     </li>
                 </ul>
                 @else 
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="/login">@yield('navbarItem1')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="register">@yield('navbarItem2')</a>
-                    </li>
-                </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/login">@yield('navbarItem1')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="/register">@yield('navbarItem2')</a>
+                        </li>
+                    </ul>
                 @endif
 
                 <form class="d-flex ms-auto" onsubmit="return false;">
