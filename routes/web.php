@@ -14,10 +14,14 @@ Route::post('/register', [AuthController::class, 'registerUser'])->name('registe
 
 Route::post('/login', [AuthController::class, 'loginuser'])->name('login.submit');
 
+Route::get('/logout', [AuthController::class, 'logoutUser'])->name('logout');
+
 //Views routes
 Route::get('/register', [AuthController::class, 'showRegister'])->name('show.register');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
+
+Route::get('/profile', [AuthController::class, 'showProfile'])->name('show.profile');
 
 Route::get('/', [RecipeController::class, 'getAllRecipes'])->name('welcome');
 

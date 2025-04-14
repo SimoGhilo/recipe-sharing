@@ -21,6 +21,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="/profile">{{ Auth::user()->name }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/add">Add recipe</a>
+                    </li>
                 </ul>
                 @else 
                     <ul class="navbar-nav">

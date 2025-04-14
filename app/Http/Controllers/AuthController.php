@@ -19,6 +19,11 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
+    public function showProfile()
+    {
+        return view('auth.profile');
+    }
+
     public function registerUser(Request $request){
 
         try {
@@ -68,13 +73,19 @@ class AuthController extends Controller
                 ->withInput();
             }
 
-            //TODO: send user to frontend, change navbar, add a recipe, ingredient table and pictures
+            //TODO: Add a recipe, add ingredient table and pictures for each ingredient and add userid FK to recipe
     
         } catch (\ValidationException $e) {
             return redirect()->back()
                 ->withErrors($e->validator)
                 ->withInput();
         }
+    }
+
+    public function logoutUser(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('welcome')->with('success', 'Logged out!');
     }
     
 
