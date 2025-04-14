@@ -12,6 +12,14 @@
                 <i class="fas fa-bars text-black"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+
+                @if('session'('user'))
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/profile">{{session('user')->name}}</a>
+                    </li>
+                </ul>
+                @else 
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="/login">@yield('navbarItem1')</a>
@@ -20,6 +28,8 @@
                         <a class="nav-link text-dark" href="register">@yield('navbarItem2')</a>
                     </li>
                 </ul>
+                @endif
+
                 <form class="d-flex ms-auto" onsubmit="return false;">
                     <div class="position-relative w-100" style="max-width: 300px;">
                         <input id="search" class="form-control me-2 w-100" type="search" placeholder="Search a recipe" aria-label="Search">

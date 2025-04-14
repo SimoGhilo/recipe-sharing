@@ -58,7 +58,7 @@ class AuthController extends Controller
             // Check if the user exists and the password is correct
             if ($user && Hash::check($validatedRequest['password'], $user->password)) {
                 // If credentials are correct, redirect to the welcome page
-                return redirect()->route('welcome')->with('success', 'Login Successful!');
+                return redirect()->route('welcome')->with(['success'=> 'Login Successful!', 'user'=> $user]);
             } else {
                 // If credentials are incorrect, redirect back with an error
                 return redirect()->back()->withErrors("Invalid credentials!")
