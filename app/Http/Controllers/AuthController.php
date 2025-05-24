@@ -72,8 +72,6 @@ class AuthController extends Controller
                 return redirect()->back()->withErrors("Invalid credentials!")
                 ->withInput();
             }
-
-            //TODO: Add a recipe, add ingredient table and pictures for each ingredient and add userid FK to recipe
     
         } catch (\ValidationException $e) {
             return redirect()->back()

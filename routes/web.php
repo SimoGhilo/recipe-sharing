@@ -31,3 +31,8 @@ Route::get('/error', [RecipeController::class, 'notFound'])->name('error.index')
 
 Route::get('/preview', [RecipeController::class, 'preview'])->name('preview');
 
+Route::get('/recipe/add', [RecipeController::class, 'add'])->name('recipe.add');
+
+Route::post('/recipe/add', [RecipeController::class, 'new'])->name('add.submit');
+
+

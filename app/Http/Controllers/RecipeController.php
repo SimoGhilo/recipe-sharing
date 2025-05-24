@@ -37,4 +37,12 @@ class RecipeController extends Controller
     public function notFound(){
         return view('error.index');
     }
+
+    public function add(){
+        return view('recipe.add');
+    }
+
+    public function new(){
+        //TODO: Insert to DB
+    }
 }
