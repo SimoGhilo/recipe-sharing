@@ -19,6 +19,14 @@
 
         @section('content')
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
+            
+            @if ($errors->any())
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="text-danger">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+            @endif
 
             <form class="margin" action="{{route('add.submit')}}" method="POST"  id="form-new">
                 @csrf
@@ -45,21 +53,10 @@
                   </div>
                   <div class="m-2">
                     <label for="fileUpload">Choose an image to upload:</label>
-                    <input type="file" name="file" id="fileInput" required>
+                    <input type="file" name="fileInput" id="fileInput" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-
-
-            @if ($errors->any())
-            <div style="color: red;">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
             
         </main>    
         @endsection
@@ -69,7 +66,6 @@
         <!-- User is not authenticated -->
         <p style="color:red">Error: You must be logged in to view this page.</p>
     @endauth
-
 
 
     @section('footer')

@@ -47,24 +47,41 @@ class RecipeController extends Controller
 
         $validatedRequest = $request->validate([
             'name' => 'required|string|max:255',
-            'ingredient' => 'required|nullable|string|max:255',
-            'instruction' => 'required|nullable|string|max:255',
+            'ingredient' => 'required|nullable|string|max:1000',
+            'instruction' => 'required|nullable|string|max:1000',
+            'fileInput' => 'required|file|mimes:jpg,jpeg,png|max:5048',
         ]);
 
+        //TODO: file upload has issues, check payload insertion DB
+
         // Basic fields
-        $recipe->name = $validatedRequest->input('name');
+        $recipe->name = $validatedRequest['name'];
 
         // Dynamic ingredient fields (ingredient1, ingredient2, ..., ingredient10)
-        $recipe->ingredient = $validatedRequest->input('ingredient');
+        $recipe->ingredient = $validatedRequest['ingredient'];
         for ($i = 1; $i <= 10; $i++) {
-            $recipe->{'ingredient' . $i} = htmlspecialchars($request->input('ingredient' . $i), ENT_QUOTES, 'UTF-8');
+            $recipe->{'ingredient'} .= htmlspecialchars($request->input('ingredient ' . $i), ENT_QUOTES, 'UTF-8') . ',';
         }
 
         // Dynamic instruction fields (instruction1, instruction2, ..., instruction10)
-        $recipe->instruction = $validatedRequest->input('instruction');
+        $recipe->instruction = $validatedRequest['instruction'];
         for ($i = 1; $i <= 10; $i++) {
-            $recipe->{'instruction' . $i} = htmlspecialchars($request->input('instruction' . $i), ENT_QUOTES, 'UTF-8');
+            $recipe->{'instruction'} .= ($i . '. ') . htmlspecialchars($request->input('instruction ' . $i), ENT_QUOTES, 'UTF-8');
         }
+
+        //File upload
+
+        $file = $request->file('fileInput');
+        $filename = $file->getClientOriginalExtension();
+
+        // Store the file (in storage/app/public/uploads for example)
+        $path = $file->storeAs('public/img', $filename);
+
+        //Save name file in db as well 
+
+        $recipe->image_url = '/img/' . $filename;
+
+        $recipe->user_id = auth()->id();
 
         // Save the model to the DB
         $recipe->save();

@@ -19,6 +19,14 @@
 
         <?php $__env->startSection('content'); ?>
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
+            
+            <?php if($errors->any()): ?>
+                    <ul>
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <li class="text-danger"><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </ul>
+            <?php endif; ?>
 
             <form class="margin" action="<?php echo e(route('add.submit')); ?>" method="POST"  id="form-new">
                 <?php echo csrf_field(); ?>
@@ -45,21 +53,10 @@
                   </div>
                   <div class="m-2">
                     <label for="fileUpload">Choose an image to upload:</label>
-                    <input type="file" name="file" id="fileInput">
+                    <input type="file" name="fileInput" id="fileInput" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-
-
-            <?php if($errors->any()): ?>
-            <div style="color: red;">
-                <ul>
-                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li><?php echo e($error); ?></li>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </ul>
-            </div>
-            <?php endif; ?>
             
         </main>    
         <?php $__env->stopSection(); ?>
@@ -69,7 +66,6 @@
         <!-- User is not authenticated -->
         <p style="color:red">Error: You must be logged in to view this page.</p>
     <?php endif; ?>
-
 
 
     <?php $__env->startSection('footer'); ?>
@@ -82,13 +78,6 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
-
-        const form = document.getElementById('form-new');
-
-        form.addEventListener('submit', function () {
-            // event.preventDefault();
-
-        })
 
         //ingredient fields
 
