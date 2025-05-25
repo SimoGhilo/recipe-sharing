@@ -20,7 +20,7 @@
         <?php $__env->startSection('content'); ?>
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
 
-            <form action="<?php echo e(route('add.submit')); ?>" id="form-new" method="POST">
+            <form  id="form-new">
                 <?php echo csrf_field(); ?>
                   <h1>New recipe</h1>
                   <div class="mb-2">
@@ -29,14 +29,14 @@
                   </div>
                   <div class="mb-2" id="ingredientInputContainer">
                     <label for="inputIngredient" class="form-label">Ingredients</label>
-                    <input type="text" class="form-control" id="inputIngredient" name="ingredient" aria-describedby="ingredient" required>
+                    <input type="text" class="form-control mb-1" id="inputIngredient" name="ingredient" aria-describedby="ingredient" required>
                   </div>
                   <div class="m-1">
                     <button class="btn btn-success" id="addInputIngredient">+</button>
                     <button class="btn btn-danger" id="removeInputIngredient">-</button>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            </form>
 
 
             <?php if($errors->any()): ?>
@@ -66,45 +66,50 @@
 
     <script src="<?php echo e(asset('bootstrapFiles/js/bootstrap.min.js')); ?>"></script>
 </body>
-</html>
 
 <script>
 
-    const form = document.getElementById('form-new');
+    document.addEventListener('DOMContentLoaded', function () {
 
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
+        const form = document.getElementById('form-new');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+        })
+
+        const addIngredientButton = document.getElementById('addInputIngredient');
+        addIngredientButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            //Get input and clone it
+            const input = document.getElementById('inputIngredient');
+            const clonedInput = input.cloneNode(true);
+            const container = document.getElementById('ingredientInputContainer');
+            if(container.children.length < 11){
+                clonedInput.name = `ingredient ${container.children.length - 1}`;
+                clonedInput.id = '';
+                clonedInput.value = '';
+                //append cloned input to container
+                container.appendChild(clonedInput);
+            }
+        });
+
+        const removeIngredientButton = document.getElementById('removeInputIngredient');
+        removeIngredientButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            const container = document.getElementById('ingredientInputContainer');
+            const lastChild = container.lastElementChild;
+            if(container.children.length > 2){
+                lastChild.remove();
+            }
+        })
     })
-    
-    const addIngredientButton = document.getElementById('addInputIngredient');
-    addIngredientButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        const lastInputIngredientContainer = document.getElementById('ingredientInputContainer');
 
-        const inputIngredient = document.getElementById('inputIngredient');
-        const newInputIngredient = inputIngredient.cloneNode(true);
-        newInputIngredient.value = '';
-        const currentCount = lastInputIngredientContainer.querySelectorAll('input').length;
-        newInputIngredient.name = 'ingredient' + currentCount;
-
-        if (currentCount < 15) {
-            lastInputIngredientContainer.appendChild(newInputIngredient);
-        }
-    });
-
-    const removeIngredientButton = document.getElementById('removeInputIngredient');
-    removeIngredientButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        const lastInputIngredientContainer = document.getElementById('ingredientInputContainer');
-        const inputs = lastInputIngredientContainer.querySelectorAll('input');
-
-        if (inputs.length > 1) {
-            lastInputIngredientContainer.removeChild(inputs[inputs.length - 1]);
-        }
-    });
 
 
 </script>
+</html>
+
+
 
 
 
