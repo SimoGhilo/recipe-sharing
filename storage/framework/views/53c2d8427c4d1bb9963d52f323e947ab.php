@@ -20,7 +20,7 @@
         <?php $__env->startSection('content'); ?>
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
 
-            <form class="margin"  id="form-new">
+            <form class="margin" action="<?php echo e(route('add.submit')); ?>" method="POST"  id="form-new">
                 <?php echo csrf_field(); ?>
                   <h1>New recipe</h1>
                   <div class="mb-2">
@@ -85,8 +85,9 @@
 
         const form = document.getElementById('form-new');
 
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        form.addEventListener('submit', function () {
+            // event.preventDefault();
+
         })
 
         //ingredient fields

@@ -42,7 +42,35 @@ class RecipeController extends Controller
         return view('recipe.add');
     }
 
-    public function new(){
-        //TODO: Insert to DB
+    public function store(Request $request) {
+        $recipe = new Recipe();
+
+        $validatedRequest = $request->validate([
+            'name' => 'required|string|max:255',
+            'ingredient' => 'required|nullable|string|max:255',
+            'instruction' => 'required|nullable|string|max:255',
+        ]);
+
+        // Basic fields
+        $recipe->name = $validatedRequest->input('name');
+
+        // Dynamic ingredient fields (ingredient1, ingredient2, ..., ingredient10)
+        $recipe->ingredient = $validatedRequest->input('ingredient');
+        for ($i = 1; $i <= 10; $i++) {
+            $recipe->{'ingredient' . $i} = htmlspecialchars($request->input('ingredient' . $i), ENT_QUOTES, 'UTF-8');
+        }
+
+        // Dynamic instruction fields (instruction1, instruction2, ..., instruction10)
+        $recipe->instruction = $validatedRequest->input('instruction');
+        for ($i = 1; $i <= 10; $i++) {
+            $recipe->{'instruction' . $i} = htmlspecialchars($request->input('instruction' . $i), ENT_QUOTES, 'UTF-8');
+        }
+
+        // Save the model to the DB
+        $recipe->save();
+
+        // Optional: redirect or return response
+        return redirect()->route('welcome')->with('success', 'Recipe saved!');
     }
+
 }

@@ -20,7 +20,7 @@
         @section('content')
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
 
-            <form class="margin"  id="form-new">
+            <form class="margin" action="{{route('add.submit')}}" method="POST"  id="form-new">
                 @csrf
                   <h1>New recipe</h1>
                   <div class="mb-2">
@@ -45,7 +45,7 @@
                   </div>
                   <div class="m-2">
                     <label for="fileUpload">Choose an image to upload:</label>
-                    <input type="file" name="file" id="fileInput">
+                    <input type="file" name="file" id="fileInput" required>
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -82,12 +82,6 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function () {
-
-        const form = document.getElementById('form-new');
-
-        form.addEventListener('submit', function (event) {
-            event.preventDefault();
-        })
 
         //ingredient fields
 
