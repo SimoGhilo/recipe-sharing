@@ -35,6 +35,14 @@
                     <button class="btn btn-success" id="addInputIngredient">+</button>
                     <button class="btn btn-danger" id="removeInputIngredient">-</button>
                   </div>
+                  <div class="mb-2" id="instructionsInputContainer">
+                    <label for="inputInstruction" class="form-label">Instructions (first to last)</label>
+                    <input type="text" class="form-control mb-1" id="inputInstruction" name="instruction" aria-describedby="ingredient" required>
+                  </div>
+                  <div class="m-1">
+                    <button class="btn btn-success" id="addInputInstruction">+</button>
+                    <button class="btn btn-danger" id="removeInputInstruction">-</button>
+                  </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
@@ -77,6 +85,8 @@
             event.preventDefault();
         })
 
+        //ingredient fields
+
         const addIngredientButton = document.getElementById('addInputIngredient');
         addIngredientButton.addEventListener('click', function (event) {
             event.preventDefault();
@@ -101,7 +111,37 @@
             if(container.children.length > 2){
                 lastChild.remove();
             }
-        })
+        });
+
+        //instruction fields
+
+        const addInstructionInput = document.getElementById('addInputInstruction');
+        addInstructionInput.addEventListener('click', function (event) {
+            event.preventDefault();
+            //Get input and clone it
+            const input = document.getElementById('inputInstruction');
+            const clonedInput = input.cloneNode(true);
+            const container = document.getElementById('instructionsInputContainer');
+            if(container.children.length < 11){
+                clonedInput.name = `instruction ${container.children.length - 1}`;
+                clonedInput.id = '';
+                clonedInput.value = '';
+                //append cloned input to container
+                container.appendChild(clonedInput);
+            }
+        });
+
+        const removeInstructionContainer = document.getElementById('removeInputInstruction');
+        removeInstructionContainer.addEventListener('click', function (event) {
+            event.preventDefault();
+            const container = document.getElementById('instructionsInputContainer');
+            const lastChild = container.lastElementChild;
+            if(container.children.length > 2){
+                lastChild.remove();
+            }
+        });
+
+
     })
 
 
