@@ -20,7 +20,7 @@
         @section('content')
         <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center mt-5">
 
-            <form  id="form-new">
+            <form class="margin"  id="form-new">
                 @csrf
                   <h1>New recipe</h1>
                   <div class="mb-2">
@@ -42,6 +42,10 @@
                   <div class="m-1">
                     <button class="btn btn-success" id="addInputInstruction">+</button>
                     <button class="btn btn-danger" id="removeInputInstruction">-</button>
+                  </div>
+                  <div class="m-2">
+                    <label for="fileUpload">Choose an image to upload:</label>
+                    <input type="file" name="file" id="fileInput">
                   </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -147,6 +151,11 @@
 
 
 </script>
+<style>
+    .margin{
+        margin-bottom:4rem;
+    }
+</style>
 </html>
 
 
