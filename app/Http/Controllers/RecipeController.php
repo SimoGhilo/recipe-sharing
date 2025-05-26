@@ -69,21 +69,35 @@ class RecipeController extends Controller
         for ($i = 1; $i <= 10; $i++) {
             $value = $request->input('instruction' . $i);
             if ($value) {
-                $recipe->instructions .= ($i + 1) . '. ' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+                $recipe->instructions .= ($i + 1) . '. ' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . ' ';
             }
         }
 
         //File upload
 
-        $file = $request->file('fileInput');
-        $filename = $file->getClientOriginalExtension();
+        if ($request->hasFile('fileInput') && $request->file('fileInput')->isValid()) {
+            $file = $request->file('fileInput');
 
-        // Store the file (in storage/app/public/uploads for example)
-        $path = $file->storeAs('public/img', $filename);
+            $nameWithoutExt = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeName = preg_replace('/[^A-Za-z0-9_\-]/', '_', $nameWithoutExt);
+            $extension = $file->getClientOriginalExtension();
+            $filename = $safeName . '.' . $extension;
 
-        //Save name file in db as well 
+            // Final path: public/img/
+            $destinationPath = public_path('img');
 
-        $recipe->image_url = '/img/' . $filename;
+            // Make sure the directory exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Move the file
+            $file->move($destinationPath, $filename);
+
+            // Save relative path for use in views or DB
+            $recipe->image_url = '/img/' . $filename;
+        }
+
 
         $recipe->user_id = auth()->id();
 
