@@ -28,7 +28,7 @@
                     </ul>
             @endif
 
-            <form class="margin" action="{{route('add.submit')}}" method="POST"  id="form-new">
+            <form class="margin" action="{{route('add.submit')}}" method="POST"  id="form-new" enctype="multipart/form-data">
                 @csrf
                   <h1>New recipe</h1>
                   <div class="mb-2">
@@ -89,7 +89,7 @@
             const clonedInput = input.cloneNode(true);
             const container = document.getElementById('ingredientInputContainer');
             if(container.children.length < 11){
-                clonedInput.name = `ingredient ${container.children.length - 1}`;
+                clonedInput.name = `ingredient${container.children.length - 1}`;
                 clonedInput.id = '';
                 clonedInput.value = '';
                 //append cloned input to container
@@ -117,7 +117,7 @@
             const clonedInput = input.cloneNode(true);
             const container = document.getElementById('instructionsInputContainer');
             if(container.children.length < 11){
-                clonedInput.name = `instruction ${container.children.length - 1}`;
+                clonedInput.name = `instruction${container.children.length - 1}`;
                 clonedInput.id = '';
                 clonedInput.value = '';
                 //append cloned input to container

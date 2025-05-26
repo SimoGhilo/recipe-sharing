@@ -52,21 +52,25 @@ class RecipeController extends Controller
             'fileInput' => 'required|file|mimes:jpg,jpeg,png|max:5048',
         ]);
 
-        //TODO: file upload has issues, check payload insertion DB
-
         // Basic fields
         $recipe->name = $validatedRequest['name'];
 
         // Dynamic ingredient fields (ingredient1, ingredient2, ..., ingredient10)
-        $recipe->ingredient = $validatedRequest['ingredient'];
+        $recipe->ingredients = $validatedRequest['ingredient'] . ', ';
         for ($i = 1; $i <= 10; $i++) {
-            $recipe->{'ingredient'} .= htmlspecialchars($request->input('ingredient ' . $i), ENT_QUOTES, 'UTF-8') . ',';
+            $value = $request->input('ingredient' . $i);
+            if ($value) {
+                $recipe->ingredients .= htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . ', ';
+            }
         }
 
         // Dynamic instruction fields (instruction1, instruction2, ..., instruction10)
-        $recipe->instruction = $validatedRequest['instruction'];
+        $recipe->instructions = '1. ' . $validatedRequest['instruction'];
         for ($i = 1; $i <= 10; $i++) {
-            $recipe->{'instruction'} .= ($i . '. ') . htmlspecialchars($request->input('instruction ' . $i), ENT_QUOTES, 'UTF-8');
+            $value = $request->input('instruction' . $i);
+            if ($value) {
+                $recipe->instructions .= ($i + 1) . '. ' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+            }
         }
 
         //File upload
