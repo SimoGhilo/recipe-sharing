@@ -16,6 +16,8 @@
     @section('navbarItem2', 'Register')
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- TODO: delete recipe if logged on -->
+
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
         <h1>Hello, {{Auth::user()->name}}!</h1>
@@ -34,6 +36,7 @@
                         >
                         <div class="card-body">
                             <a class="btn btn-primary" href="/recipe/{{$recipe->id}}"><h5 class="card-title">{{ $recipe->name }}</h5></a>
+                            <a class="btn btn-danger delete" id="{{$recipe->id}}"><h5 class="card-title">Delete recipe</h5></a>
                         </div>
                     </div>
                 @endforeach
@@ -47,7 +50,46 @@
     @endsection
 
     <script src="{{ asset('bootstrapFiles/js/bootstrap.min.js') }}"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.getElementsByClassName('delete');
+        Array.from(deleteButtons).forEach((button) => {
+            button.addEventListener('click', function (){
+                console.log('clicked')
+                fetch("{{ route('recipe.delete') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            id: button.id
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.message);
+                            // Remove the card element
+                            //TODO: feedback user on front end
+                            const card = button.closest('.card');
+                            if(card) card.remove();
+                        } else {
+                            alert(data.message || 'Delete failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting recipe:", error);
+                    });
+            });
+
+        })
+
+    });
+
+    </script>
 </body>
 </html>
+
 
 

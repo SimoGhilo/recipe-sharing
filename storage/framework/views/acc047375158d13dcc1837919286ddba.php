@@ -16,6 +16,8 @@
     <?php $__env->startSection('navbarItem2', 'Register'); ?>
 <body class="d-flex flex-column min-vh-100">
 
+    <!-- TODO: delete recipe if logged on -->
+
     <?php $__env->startSection('content'); ?>
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
         <h1>Hello, <?php echo e(Auth::user()->name); ?>!</h1>
@@ -34,6 +36,7 @@
                         >
                         <div class="card-body">
                             <a class="btn btn-primary" href="/recipe/<?php echo e($recipe->id); ?>"><h5 class="card-title"><?php echo e($recipe->name); ?></h5></a>
+                            <a class="btn btn-danger delete" id="<?php echo e($recipe->id); ?>"><h5 class="card-title">Delete recipe</h5></a>
                         </div>
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -47,8 +50,46 @@
     <?php $__env->stopSection(); ?>
 
     <script src="<?php echo e(asset('bootstrapFiles/js/bootstrap.min.js')); ?>"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const deleteButtons = document.getElementsByClassName('delete');
+        Array.from(deleteButtons).forEach((button) => {
+            button.addEventListener('click', function (){
+                console.log('clicked')
+                fetch("<?php echo e(route('recipe.delete')); ?>", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "<?php echo e(csrf_token()); ?>"
+                        },
+                        body: JSON.stringify({
+                            id: button.id
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.message);
+                            // Remove the card element
+                            const card = button.closest('.card');
+                            if(card) card.remove();
+                        } else {
+                            alert(data.message || 'Delete failed');
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error deleting recipe:", error);
+                    });
+            });
+
+        })
+
+    });
+
+    </script>
 </body>
 </html>
+
 
 
 

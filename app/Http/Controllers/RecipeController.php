@@ -114,4 +114,23 @@ class RecipeController extends Controller
         return redirect()->route('welcome')->with('success', 'Recipe saved!');
     }
 
+    public function delete(Request $request)
+    {   
+            $data = $request->validate([
+                'id' => 'required'
+            ]);
+
+            $id = $data['id'];
+
+            $recipe = Recipe::find($id);
+            if ($recipe) {
+                $recipe->delete();
+                 return response()->json(['success' => true, 'message' => 'Recipe deleted successfully' ]);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Recipe not found' ]);
+            }
+
+
+    }
+
 }

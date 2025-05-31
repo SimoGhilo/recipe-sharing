@@ -23,6 +23,8 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('show.login');
 
 Route::get('/profile', [AuthController::class, 'showProfile'])->name('show.profile');
 
+//Recipe routes
+
 Route::get('/', [RecipeController::class, 'getAllRecipes'])->name('welcome');
 
 Route::get('/recipe/{id}', [RecipeController::class, 'show'])->name('recipe.show')->where('id', '[0-9]+');
@@ -35,4 +37,5 @@ Route::get('/recipe/add', [RecipeController::class, 'add'])->name('recipe.add');
 
 Route::post('/recipe/add', [RecipeController::class, 'store'])->name('add.submit');
 
+Route::post('/recipe/delete', [RecipeController::class, 'delete'])->name('recipe.delete');
 
