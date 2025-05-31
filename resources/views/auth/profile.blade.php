@@ -20,7 +20,6 @@
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
         <h1>Hello, {{Auth::user()->name}}!</h1>
         <p>{{Auth::user()->email}}</p>
-        <!-- TODO: Pull all recipes for user -->
         <div class="d-flex flex-column align-items-center justify-content-center">
             <h3>Your recipes</h3>
 

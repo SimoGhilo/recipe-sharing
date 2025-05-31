@@ -65,11 +65,17 @@ class RecipeController extends Controller
         }
 
         // Dynamic instruction fields (instruction1, instruction2, ..., instruction10)
-        $recipe->instructions = '1. ' . $validatedRequest['instruction'];
+        $recipe->instructions = '1. ' . $validatedRequest['instruction'] . ' ';
         for ($i = 1; $i <= 10; $i++) {
             $value = $request->input('instruction' . $i);
             if ($value) {
-                $recipe->instructions .= ($i + 1) . '. ' . htmlspecialchars($value, ENT_QUOTES, 'UTF-8') . ' ';
+                $lastChar = substr($value, -1);
+                if($lastChar == '.'){
+                    $recipe->instructions .= ($i + 1) . '. ' . $value;
+                } else {
+                    $recipe->instructions .= ($i + 1) . '. ' . $value . '. ';
+                }
+                
             }
         }
 
