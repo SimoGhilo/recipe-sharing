@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Recipe;
+
 
 class AuthController extends Controller
 {
@@ -21,7 +23,8 @@ class AuthController extends Controller
 
     public function showProfile()
     {
-        return view('auth.profile');
+        $recipes = Recipe::where('user_id', auth()->id())->get();
+        return view('auth.profile', compact('recipes'));
     }
 
     public function registerUser(Request $request){

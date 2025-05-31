@@ -11,20 +11,34 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/header.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('css/footer.css')); ?>">
 </head>
-<body class="d-flex flex-column min-vh-100">
     
     <?php $__env->startSection('navbarItem1', 'Login'); ?>
     <?php $__env->startSection('navbarItem2', 'Register'); ?>
+<body class="d-flex flex-column min-vh-100">
 
     <?php $__env->startSection('content'); ?>
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
         <h1>Hello, <?php echo e(Auth::user()->name); ?>!</h1>
         <p><?php echo e(Auth::user()->email); ?></p>
-        <div class="d-flex flex-column align-items-center justify-content-center">
-            <h3>Your recipes</h3>
-
-        </div>
         <a class="btn btn-danger" href="<?php echo e(route('logout')); ?>">Logout</a>
+        <div class="d-flex flex-column align-items-center justify-content-center text-center">
+            <h3>Your recipes</h3>
+            <ul class="mb-5">
+                <?php $__currentLoopData = $recipes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recipe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="card h-100 shadow-sm mb-2">
+                        <img 
+                            src="<?php echo e(asset($recipe->image_url)); ?>" 
+                            alt="Recipe image" 
+                            class="card-img-top img-fluid object-fit-cover" 
+                            style="height: 200px; width: 100%;"
+                        >
+                        <div class="card-body">
+                            <a class="btn btn-primary" href="/recipe/<?php echo e($recipe->id); ?>"><h5 class="card-title"><?php echo e($recipe->name); ?></h5></a>
+                        </div>
+                    </div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </ul>
+        </div>
     </main>    
     <?php $__env->stopSection(); ?>
 
@@ -35,15 +49,7 @@
     <script src="<?php echo e(asset('bootstrapFiles/js/bootstrap.min.js')); ?>"></script>
 </body>
 </html>
-<style>
-    img{
-        transition: opacity 0.3s ease; 
-    }
-    img:hover{
-        opacity: 0.7;
-        cursor: pointer;
-    }
-</style>
+
 
 
 <?php echo $__env->make('layouts.layout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Simone\recipe-sharing\resources\views/auth/profile.blade.php ENDPATH**/ ?>
