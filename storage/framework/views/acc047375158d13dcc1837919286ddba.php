@@ -16,8 +16,6 @@
     <?php $__env->startSection('navbarItem2', 'Register'); ?>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- TODO: delete recipe if logged on -->
-
     <?php $__env->startSection('content'); ?>
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
 
@@ -61,7 +59,6 @@
         const deleteButtons = document.getElementsByClassName('delete');
         Array.from(deleteButtons).forEach((button) => {
             button.addEventListener('click', function (){
-                console.log('clicked')
                 fetch("<?php echo e(route('recipe.delete')); ?>", {
                         method: "POST",
                         headers: {
@@ -75,7 +72,6 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            console.log(data.message);
                             // Remove the card element
                             const span = document.getElementById("feedback");
                             span.textContent = "Recipe deleted successfully";

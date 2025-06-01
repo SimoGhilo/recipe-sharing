@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\File;
 
 class RecipeController extends Controller
 {
@@ -124,7 +125,15 @@ class RecipeController extends Controller
 
             $recipe = Recipe::find($id);
             if ($recipe) {
+
+                //Delete image
+                $imagePath = public_path($recipe->image_url);
+                if(File::exists($imagePath)){
+                    File::delete($imagePath);
+                }
+
                 $recipe->delete();
+
                  return response()->json(['success' => true, 'message' => 'Recipe deleted successfully' ]);
             } else {
                 return response()->json(['success' => false, 'message' => 'Recipe not found' ]);
