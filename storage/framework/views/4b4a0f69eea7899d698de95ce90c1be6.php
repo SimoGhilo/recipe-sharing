@@ -36,12 +36,12 @@
                     </ul>
                 <?php endif; ?>
 
-                <form class="d-flex ms-auto" onsubmit="return false;">
+                <form class="d-flex ms-auto justify-content-space-between align-items-center" onsubmit="return false;">
                     <div class="position-relative w-100" style="max-width: 300px;">
-                        <input id="search" class="form-control me-2 w-100" type="search" placeholder="Search a recipe" aria-label="Search">
+                        <input id="search" class="form-control  w-100" type="search" placeholder="Search a recipe" aria-label="Search">
                         <div id="search-results" style="display: none;"></div>
                     </div>
-                    <button class="btn btn-outline-dark" type="submit">Go</button>
+                    <button class="btn btn-outline-dark ms-2" type="submit">Go</button>
                 </form>                
             </div>
         </div>

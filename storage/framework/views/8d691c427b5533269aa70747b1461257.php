@@ -19,12 +19,12 @@
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center min-vh-100 mb-4 mt-1">
         <h1 class="m-2"><?php echo e($recipe->name); ?></h1>
         <div class="d-flex flex-column justify-content-evenly align-items-center flex-md-row gap-4 flex-wrap w-100"> 
-            <div style="max-width: 300px;">
-                <img src="<?php echo e(asset($recipe->image_url)); ?>" alt="" class="img-fluid" />
+            <div class="card shadow-sm" style="max-width: 300px;">
+                <img src="<?php echo e(asset($recipe->image_url)); ?>" class="card-img-top" alt="Recipe image">
             </div>
             <div class="d-flex text-center flex-column justify-content-evenly align-items-center">
                 <h2>ingredients required:</h2>
-                <ul>
+                <ul class="custom d-flex flex-column justify-content-center align-items-center w-100 mb-5">
                     <?php $__currentLoopData = explode(',', $recipe->ingredients); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ingredient): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li><?php echo e($ingredient); ?></li>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -51,9 +51,21 @@
 </body>
 </html>
 <style>
-    .custom{
-        list-style: none;
-    }
+.custom {
+    list-style: none;
+    padding-left: 0;
+}
+
+.custom li {
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+
+}
 </style>
 
 <?php echo $__env->make('layouts.layout', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Simone\recipe-sharing\resources\views/recipe/show.blade.php ENDPATH**/ ?>
