@@ -16,15 +16,19 @@
     @section('navbarItem2', 'Register')
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- TODO: delete recipe if logged on -->
-
     @section('content')
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
+
+        <span class="text-success d-none" id="feedback"></span>
+
         <h1>Hello, {{Auth::user()->name}}!</h1>
         <p>{{Auth::user()->email}}</p>
         <a class="btn btn-danger" href="{{ route('logout') }}">Logout</a>
         <div class="d-flex flex-column align-items-center justify-content-center text-center">
             <h3>Your recipes</h3>
+            @if (count($recipes) == 0)
+                <p class="text-secondary">You do not have any recipes</p>
+            @endif
             <ul class="mb-5">
                 @foreach($recipes as $recipe)
                     <div class="card h-100 shadow-sm mb-2">
@@ -55,7 +59,6 @@
         const deleteButtons = document.getElementsByClassName('delete');
         Array.from(deleteButtons).forEach((button) => {
             button.addEventListener('click', function (){
-                console.log('clicked')
                 fetch("{{ route('recipe.delete') }}", {
                         method: "POST",
                         headers: {
@@ -69,9 +72,10 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            console.log(data.message);
                             // Remove the card element
-                            //TODO: feedback user on front end
+                            const span = document.getElementById("feedback");
+                            span.textContent = "Recipe deleted successfully";
+                            span.classList.remove('d-none');
                             const card = button.closest('.card');
                             if(card) card.remove();
                         } else {

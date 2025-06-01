@@ -20,11 +20,17 @@
 
     <?php $__env->startSection('content'); ?>
     <main class="text-center w-100 d-flex flex-column align-items-center justify-content-center">
+
+        <span class="text-success d-none" id="feedback"></span>
+
         <h1>Hello, <?php echo e(Auth::user()->name); ?>!</h1>
         <p><?php echo e(Auth::user()->email); ?></p>
         <a class="btn btn-danger" href="<?php echo e(route('logout')); ?>">Logout</a>
         <div class="d-flex flex-column align-items-center justify-content-center text-center">
             <h3>Your recipes</h3>
+            <?php if(count($recipes) == 0): ?>
+                <p class="text-secondary">You do not have any recipes</p>
+            <?php endif; ?>
             <ul class="mb-5">
                 <?php $__currentLoopData = $recipes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recipe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="card h-100 shadow-sm mb-2">
@@ -71,6 +77,9 @@
                         if (data.success) {
                             console.log(data.message);
                             // Remove the card element
+                            const span = document.getElementById("feedback");
+                            span.textContent = "Recipe deleted successfully";
+                            span.classList.remove('d-none');
                             const card = button.closest('.card');
                             if(card) card.remove();
                         } else {
